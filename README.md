@@ -1,5 +1,22 @@
 # Annoying Face
 
+## API 명세
+
+```text
+[POST] /api
+```
+
+- **request** : `form-data`
+  |field|desc|
+  |--|--|
+  |'client'| 클라이언트 이미지 file|
+  |'model' |모델 이미지 file|
+
+- **response**
+  |status| desc|
+  |---|---|
+  |200 | 이미지 파일|
+
 ## 커밋 메시지
 
 | Type     | Description                                                                 |
