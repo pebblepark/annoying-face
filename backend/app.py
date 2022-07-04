@@ -1,6 +1,9 @@
+# -- coding: utf-8 --
+import os
+
 import cv2
 import numpy as np
-from flask import Flask, make_response, send_file
+from flask import Flask, Response, abort, json, make_response, send_file
 from flask_restx import Api, Resource
 from werkzeug.datastructures import FileStorage
 
@@ -21,6 +24,7 @@ request.add_argument('model', type=FileStorage, location='files', required=True)
 class Api(Resource):
     @swaggerApi.expect(request)
     def post(self):
+        """얼굴 합성"""
         args = request.parse_args()
         client = args['client']
         model = args['model']
@@ -33,11 +37,13 @@ class Api(Resource):
         model_file = np.fromstring(model_file_str, np.uint8)
         model_img = cv2.imdecode(model_file, cv2.IMREAD_COLOR)
 
-        result = get_annoying_face(client_img, model_img)
+        try:
+            result = get_annoying_face(client_img, model_img)
+        except Exception as e:
+            return Response(json.dumps({'message': str(e)}), status = 500)
 
         _, buffer = cv2.imencode('.png', result)
         response = make_response(buffer.tobytes())
         response.headers['Content-Type'] = 'image/png'
 
         return response
-

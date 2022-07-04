@@ -31,6 +31,25 @@ def get_annoying_face(client, model):
         re_y2 = shape[47, 1]
         re_margin = int((re_x2 - re_x1) * 0.18)
 
+        # mouth
+        mouth_x1 = shape[48, 0]
+        mouth_y1 = shape[50, 1]
+        mouth_x2 = shape[54, 0]
+        mouth_y2 = shape[57, 1]
+        mouth_margin = int((mouth_x2 - mouth_x1) * 0.1)
+
+        mouth_img = client[mouth_y1-mouth_margin:mouth_y2+mouth_margin, mouth_x1-mouth_margin:mouth_x2+mouth_margin].copy()
+        mouth_img = resize(mouth_img, width=250)
+
+        result = cv2.seamlessClone(
+            mouth_img,
+            result,
+            np.full(mouth_img.shape[:2], 255, mouth_img.dtype),
+            (180, 310),
+            cv2.NORMAL_CLONE
+        )
+
+
         left_eye_img = client[le_y1-le_margin:le_y2+le_margin, le_x1-le_margin:le_x2+le_margin].copy()
         right_eye_img = client[re_y1-re_margin:re_y2+re_margin, re_x1-re_margin:re_x2+re_margin].copy()
 
@@ -52,23 +71,7 @@ def get_annoying_face(client, model):
             (250, 220),
             cv2.NORMAL_CLONE
         )
-
-        # mouth
-        mouth_x1 = shape[48, 0]
-        mouth_y1 = shape[50, 1]
-        mouth_x2 = shape[54, 0]
-        mouth_y2 = shape[57, 1]
-        mouth_margin = int((mouth_x2 - mouth_x1) * 0.1)
-
-        mouth_img = client[mouth_y1-mouth_margin:mouth_y2+mouth_margin, mouth_x1-mouth_margin:mouth_x2+mouth_margin].copy()
-        mouth_img = resize(mouth_img, width=250)
-
-        result = cv2.seamlessClone(
-            mouth_img,
-            result,
-            np.full(mouth_img.shape[:2], 255, mouth_img.dtype),
-            (180, 310),
-            cv2.NORMAL_CLONE
-        )
+    else:
+        raise Exception('얼굴을 찾을 수 없습니다.')
 
     return result
