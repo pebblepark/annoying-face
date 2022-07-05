@@ -114,7 +114,7 @@ const Result = ({ client, model }: { client?: File; model?: File }) => {
     formData.append('model', model);
 
     return new Promise<string>(async (resolve) => {
-      await fetch('/api', {
+      await fetch('https://annoying-face-api.herokuapp.com/api', {
         method: 'POST',
         body: formData,
       })
