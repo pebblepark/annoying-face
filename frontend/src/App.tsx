@@ -18,13 +18,18 @@ function App() {
   );
 }
 
+const MODEL_IMAGE_FOLDER = 'models';
+
 const modelList = [
-  { path: '/orange.jpg', points: [], name: '오렌지' },
-  { path: '/green_apple.jpg', points: [], name: '풋사과' },
-  { path: '/apple.jpg', points: [], name: '사과' },
-  { path: '/tomato.jpg', points: [], name: '토마토' },
-  { path: '/potato.jpg', points: [], name: '감자' },
-];
+  { path: 'orange.jpg', points: [], name: '오렌지' },
+  { path: 'green_apple.jpg', points: [], name: '풋사과' },
+  { path: 'apple.jpg', points: [], name: '사과' },
+  { path: 'tomato.jpg', points: [], name: '토마토' },
+  { path: 'potato.jpg', points: [], name: '감자' },
+].map((modelImg) => ({
+  ...modelImg,
+  path: `${MODEL_IMAGE_FOLDER}/${modelImg.path}`,
+}));
 
 const Model = ({ onSelect }: { onSelect: (file: File) => void }) => {
   useEffect(() => {
@@ -44,10 +49,7 @@ const Model = ({ onSelect }: { onSelect: (file: File) => void }) => {
     <div className='preview-wrapper'>
       <h2>모델 이미지</h2>
       <ImageViewer>
-        <ImageViewer.Image
-          className='image'
-          src={`models/${modelList[0].path}`}
-        />
+        <ImageViewer.Image className='image' src={modelList[0].path} />
         <ImageViewer.Controls>
           <ImageViewer.Control>
             {({ onChange }) => (
@@ -60,7 +62,7 @@ const Model = ({ onSelect }: { onSelect: (file: File) => void }) => {
                 }}
               >
                 {modelList.map(({ path, name }) => (
-                  <option value={`models/${path}`}>{name}</option>
+                  <option value={path}>{name}</option>
                 ))}
               </select>
             )}
