@@ -44,7 +44,10 @@ const Model = ({ onSelect }: { onSelect: (file: File) => void }) => {
     <div className='preview-wrapper'>
       <h2>모델 이미지</h2>
       <ImageViewer>
-        <ImageViewer.Image className='image' src={modelList[0].path} />
+        <ImageViewer.Image
+          className='image'
+          src={`models/${modelList[0].path}`}
+        />
         <ImageViewer.Controls>
           <ImageViewer.Control>
             {({ onChange }) => (
@@ -57,7 +60,7 @@ const Model = ({ onSelect }: { onSelect: (file: File) => void }) => {
                 }}
               >
                 {modelList.map(({ path, name }) => (
-                  <option value={path}>{name}</option>
+                  <option value={`models/${path}`}>{name}</option>
                 ))}
               </select>
             )}
