@@ -3,13 +3,15 @@ import os
 
 import cv2
 import numpy as np
-from flask import Flask, Response, abort, json, make_response, send_file
+from flask import Flask, Response, json, make_response
+from flask_cors import CORS
 from flask_restx import Api, Resource
 from werkzeug.datastructures import FileStorage
 
 from api import get_annoying_face
 
 app = Flask(__name__)
+CORS(app, origins=['http://localhost:3000', 'https://pebblepark.github.io'])
 swaggerApi = Api(app, version='1.0', title='Annoying-Face API', description='Swagger Docs', doc='/api-docs')
 
 @app.route("/")
