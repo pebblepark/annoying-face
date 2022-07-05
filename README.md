@@ -13,8 +13,8 @@
 - **request** : `form-data`
   |field|desc|
   |--|--|
-  |'client'| 클라이언트 이미지 file|
-  |'model' |모델 이미지 file|
+  |client| 클라이언트 이미지 file|
+  |model|모델 이미지 file|
 
 - **response**
   |status| desc|
