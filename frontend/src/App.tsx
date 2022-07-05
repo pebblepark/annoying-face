@@ -104,6 +104,7 @@ const Client = ({ onSelect }: { onSelect: (file: File) => void }) => {
 
 const Result = ({ client, model }: { client?: File; model?: File }) => {
   const [isSuccess, setSuccess] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const fetchApi = async () => {
     if (!client || !model) {
@@ -115,6 +116,7 @@ const Result = ({ client, model }: { client?: File; model?: File }) => {
     formData.append('client', client);
     formData.append('model', model);
 
+    setLoading(true);
     return new Promise<string>(async (resolve) => {
       await fetch('https://annoying-face-api.herokuapp.com/api', {
         method: 'POST',
@@ -132,7 +134,8 @@ const Result = ({ client, model }: { client?: File; model?: File }) => {
           setSuccess(true);
           resolve(imageObjectURL);
         })
-        .catch((error) => alert(error));
+        .catch((error) => alert(error))
+        .finally(() => setLoading(false));
     });
   };
 
@@ -155,7 +158,10 @@ const Result = ({ client, model }: { client?: File; model?: File }) => {
             )}
           </ImageViewer.Control>
         </ImageViewer.Controls>
-        {isSuccess && <ImageViewer.Image className='image' />}
+        <ImageViewer.Image
+          className={`${isSuccess ? 'image' : ''}`}
+          isLoading={isLoading}
+        />
       </ImageViewer>
     </div>
   );

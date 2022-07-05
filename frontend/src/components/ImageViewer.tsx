@@ -35,7 +35,10 @@ const useImageViewContext = () => {
   return context;
 };
 
-const Image = (props: ImgHTMLAttributes<HTMLImageElement>) => {
+const Image = (
+  props: ImgHTMLAttributes<HTMLImageElement> & { isLoading?: boolean }
+) => {
+  const { isLoading } = props;
   const { src } = useImageViewContext();
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -46,6 +49,8 @@ const Image = (props: ImgHTMLAttributes<HTMLImageElement>) => {
       imgRef.current.src = src;
     }
   }, [src]);
+
+  if (isLoading) return <img src='loading.png' className='loading' />;
 
   return <img {...props} ref={imgRef} />;
 };

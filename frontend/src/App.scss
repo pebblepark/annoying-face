@@ -11,7 +11,7 @@
 }
 
 .image {
-  border: 1px solid black;
+  border: none;
   height: 500px;
   width: 500px;
   object-fit: contain;
@@ -28,4 +28,15 @@
 
 .input-file {
   display: none;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  width: 50px;
+  animation: rotate 1.5s linear infinite;
 }
