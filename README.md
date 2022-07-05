@@ -1,6 +1,10 @@
 # Annoying Face
 
+## 화면
+![screenshot](https://user-images.githubusercontent.com/59855468/177265504-afb2d6f1-b71f-454f-adee-5cc0e7b0c273.png)
+
 ## API 명세
+[Swagger Docs](https://annoying-face-api.herokuapp.com/api-docs)
 
 ```text
 [POST] /api
