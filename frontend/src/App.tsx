@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className='container'>
-      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+      <div className='input-wrapper'>
         <Client onSelect={setClient} />
         <Model onSelect={setModel} />
       </div>
