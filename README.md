@@ -1,7 +1,7 @@
 # Annoying Face
 
 ## 화면
-![screenshot](https://user-images.githubusercontent.com/59855468/177265504-afb2d6f1-b71f-454f-adee-5cc0e7b0c273.png)
+![annoying-face-screen](https://user-images.githubusercontent.com/59855468/177443941-a93c62e6-ff91-4c1d-9bc5-d676099817c7.gif)
 
 ## API 명세
 [Swagger Docs](https://annoying-face-api.herokuapp.com/api-docs)
