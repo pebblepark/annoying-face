@@ -62,7 +62,9 @@ const Model = ({ onSelect }: { onSelect: (file: File) => void }) => {
                 }}
               >
                 {modelList.map(({ path, name }) => (
-                  <option value={path}>{name}</option>
+                  <option value={path} key={path}>
+                    {name}
+                  </option>
                 ))}
               </select>
             )}

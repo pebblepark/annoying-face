@@ -35,10 +35,10 @@ const useImageViewContext = () => {
   return context;
 };
 
-const Image = (
-  props: ImgHTMLAttributes<HTMLImageElement> & { isLoading?: boolean }
-) => {
-  const { isLoading } = props;
+const Image = ({
+  isLoading,
+  ...props
+}: ImgHTMLAttributes<HTMLImageElement> & { isLoading?: boolean }) => {
   const { src } = useImageViewContext();
   const imgRef = useRef<HTMLImageElement>(null);
 
