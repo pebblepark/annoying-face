@@ -8,7 +8,7 @@ function App() {
   const [model, setModel] = useState<File>();
 
   return (
-    <div className='container'>
+    <div className='bg-slate-600 min-h-screen text-white'>
       <div className='input-wrapper'>
         <Client onSelect={setClient} />
         <Model onSelect={setModel} />
