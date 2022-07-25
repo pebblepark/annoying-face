@@ -15,7 +15,7 @@ const ImageUploadButton = ({
     <>
       <label htmlFor='image-upload-input'>{children}</label>
       <input
-        className='input-file'
+        className='hidden'
         type='file'
         id='image-upload-input'
         accept='image/*'

@@ -50,7 +50,7 @@ const Image = ({
     }
   }, [src]);
 
-  if (isLoading) return <img src='loading.png' className='loading' />;
+  if (isLoading) return <img src='loading.png' className='w-12 animate-spin' />;
 
   return <img {...props} ref={imgRef} />;
 };

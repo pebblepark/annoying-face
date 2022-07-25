@@ -1,18 +1,15 @@
 import { useEffect, useState } from 'react';
 import ImageUploadButton from './components/ImageUploadButton';
 import ImageViewer from './components/ImageViewer';
-import './App.scss';
 
 function App() {
   const [client, setClient] = useState<File>();
   const [model, setModel] = useState<File>();
 
   return (
-    <div className='bg-slate-600 min-h-screen text-white'>
-      <div className='input-wrapper'>
-        <Client onSelect={setClient} />
-        <Model onSelect={setModel} />
-      </div>
+    <div className='grid w-full h-full min-h-screen gap-10 p-6 py-3 text-white place-content-center md:grid-cols-2 lg:grid-cols-3 bg-slate-400'>
+      <Client onSelect={setClient} />
+      <Model onSelect={setModel} />
       <Result client={client} model={model} />
     </div>
   );
@@ -46,15 +43,19 @@ const Model = ({ onSelect }: { onSelect: (file: File) => void }) => {
   };
 
   return (
-    <div className='preview-wrapper'>
-      <h2>모델 이미지</h2>
+    <div className='flex flex-col items-center justify-between gap-5 p-4 text-black shadow-lg bg-slate-200 rounded-2xl'>
+      <h2 className='m-4 text-2xl font-bold'>모델 이미지</h2>
       <ImageViewer>
-        <ImageViewer.Image className='image' src={modelList[0].path} />
+        <ImageViewer.Image
+          className='object-contain w-full h-auto rounded-md shadow-lg'
+          src={modelList[0].path}
+          alt='모델 이미지'
+        />
         <ImageViewer.Controls>
           <ImageViewer.Control>
             {({ onChange }) => (
               <select
-                className='option'
+                className='inline-block px-5 py-3 m-3 rounded-md shadow-sm cursor-pointer bg-slate-300 focus:outline-none hover:scale-105'
                 onChange={(e) => {
                   const url = e.target.value;
                   onChange(url);
@@ -84,16 +85,22 @@ const Client = ({ onSelect }: { onSelect: (file: File) => void }) => {
           onSelect(file);
         }}
       >
-        <span className='option'>업로드</span>
+        <a className='inline-block px-5 py-3 m-3 rounded-md shadow-sm cursor-pointer bg-slate-300 hover:scale-105'>
+          업로드
+        </a>
       </ImageUploadButton>
     );
   };
 
   return (
-    <div className='preview-wrapper'>
-      <h2>클라이언트 이미지</h2>
+    <div className='flex flex-col items-center justify-between gap-5 p-4 text-black shadow-lg bg-slate-200 rounded-2xl'>
+      <h2 className='m-4 text-2xl font-bold'>클라이언트 이미지</h2>
       <ImageViewer>
-        <ImageViewer.Image className='image' />
+        <ImageViewer.Image
+          className='object-contain w-full h-auto bg-white rounded-md shadow-lg'
+          src='http://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif'
+          alt='클라이언트 이미지'
+        />
         <ImageViewer.Controls>
           <ImageViewer.Control>
             {({ onChange }) => <UploadButton onChange={onChange} />}
@@ -105,7 +112,6 @@ const Client = ({ onSelect }: { onSelect: (file: File) => void }) => {
 };
 
 const Result = ({ client, model }: { client?: File; model?: File }) => {
-  const [isSuccess, setSuccess] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
   const fetchApi = async () => {
@@ -133,7 +139,6 @@ const Result = ({ client, model }: { client?: File; model?: File }) => {
         })
         .then((blob) => {
           const imageObjectURL = URL.createObjectURL(blob);
-          setSuccess(true);
           resolve(imageObjectURL);
         })
         .catch((error) => alert(error))
@@ -142,28 +147,29 @@ const Result = ({ client, model }: { client?: File; model?: File }) => {
   };
 
   return (
-    <div className='preview-wrapper'>
-      <h2>결과보기</h2>
+    <div className='flex flex-col items-center justify-between col-span-1 gap-5 p-4 text-black shadow-lg bg-slate-200 md:col-span-2 lg:col-span-1 rounded-2xl'>
+      <h2 className='m-4 text-2xl font-bold'>결과보기</h2>
       <ImageViewer>
+        <ImageViewer.Image
+          className='object-contain w-full h-auto bg-white rounded-md shadow-lg'
+          isLoading={isLoading}
+        />
         <ImageViewer.Controls>
           <ImageViewer.Control>
             {({ onChange }) => (
               <button
-                className='option'
+                className='inline-block px-5 py-3 m-3 rounded-md shadow-sm cursor-pointer bg-slate-300 enabled:hover:scale-105 disabled:opacity-75'
                 onClick={async () => {
                   const resultUrl = await fetchApi();
                   onChange(resultUrl);
                 }}
+                disabled={isLoading}
               >
                 합성
               </button>
             )}
           </ImageViewer.Control>
         </ImageViewer.Controls>
-        <ImageViewer.Image
-          className={`${isSuccess ? 'image' : ''}`}
-          isLoading={isLoading}
-        />
       </ImageViewer>
     </div>
   );
