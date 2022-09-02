@@ -97,7 +97,7 @@ const Client = ({ onSelect }: { onSelect: (file: File) => void }) => {
       <h2 className='m-4 text-2xl font-bold'>클라이언트 이미지</h2>
       <ImageViewer>
         <ImageViewer.Image
-          className='object-contain w-full h-auto bg-white rounded-md shadow-lg'
+          className='object-contain w-full h-auto bg-white rounded-md shadow-lg aspect-square'
           src='http://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif'
           alt='클라이언트 이미지'
         />
